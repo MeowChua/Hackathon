@@ -1,0 +1,37 @@
+.image-preview {
+    width: 304px;
+    min-height: 130px;
+    border: 4px solid #000;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #cccccc;
+    margin-left: 102px;
+    margin-top: 20px;
+}
+
+.image-preview__image {
+    display: none;
+    width: 100%;
+}
+
+.image_search {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>First Page</title>
+    <link rel="stylesheet" type="text/css" href="first1.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@0.18.2/dist/web3.min.js"></script>
+    <link href="./bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="main">
+            <div class="logo">
+                <img src="img/logo.png">
+            </div>
+        </div>
+        <section class="list-tkb">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="meuu-main">
+                        <ul class="list-btn">
+                            <li><button type="button" class="btn btn-primary">Web cam</button></li>
+                            <li><button type="button" class="btn btn-info">Voice</button></li>
+                            <li><button type="button" class="btn btn-warning">Box Chat</button></li>
+                            <li><button type="button" class="btn btn-secondary">Chia sẻ màn hình</button></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </header>
+
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script>
+    const Web3 = require('web3');
+    //Conect MetaMask
+    if (typeof web3 !== 'undefined') {
+        console.log('No web3!You should consider trying MetaMask!');
+        web3 = new Web3(web3.currentProvider);
+    } else {
+        // set the provider you want from Web3.providers
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    }
+    //const Web3EthAbi = require('web3-eth-abi');
+    /*var Accounts = require('web3-eth-accounts');
+    var accounts = new Accounts('http://localhost:8545');*/
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+    var CoursetroContract = web3.eth.contract([{
+        "constant": false,
+        "inputs": [{
+            "name": "_fName",
+            "type": "string"
+        }, {
+            "name": "_age",
+            "type": "uint256"
+        }],
+        "name": "setInstructor",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }, {
+        "constant": true,
+        "inputs": [],
+        "name": "getInstructor",
+        "outputs": [{
+            "name": "",
+            "type": "string"
+        }, {
+            "name": "",
+            "type": "uint256"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }]);
+    var Coursetro = CoursetroContract.at('0x6FB803b06C5695C243516CE10fAAcFD24d0106bF');
+    /*console.log(Coursetro);*/
+    Coursetro.getInstructor(function(error, result) {
+        if (!error) {
+            $("#instructor").html(result[0] + ' (' + result[1] + ' years old)');
+            console.log(result);
+        } else
+            console.error(error);
+    });
+    $("#button").click(function() {
+        Coursetro.setInstructor($("#name").val(), $("#age").val());
+    });
+
+
+    function infoTransaction() {
+        document.getElementById("transfer-his").innerHTML = "<p>" + "\n" + JSON.stringify(web3.eth.getTransactionReceipt("0x253ae9284754f03e905f5991f2e8af7033047b988d2a9fc17644b6bbee653947")) + "\n" + JSON.stringify(web3.eth.getTransactionReceipt("0x86c50d0e9f1d49b6fce39277591a2ab5062a48e9e9f0a4c3872a71d9d3db6866")) + "</p>";
+        console.log(JSON.stringify(web3.eth))
+    }
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form Upload</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../text/form.css">
+</head>
+
+<body>
+    <div class="page">
+        <h1>ĐĂNG KÝ MỞ TOUR</h1>
+        <div class="register">
+            <form class="upload-form" id="register" action="formDK.html" method="post">
+                <label for="types">Chọn loại hình du lịch:</label><br>
+                <select id="types" name="types">
+                <option value="sea">Du lịch biển</option>
+                <option value="exp">Du lịch trải nghiệm</option>
+                <option value="mountain">Du lịch leo núi</option>
+                <option value="relax">Du lịch nghỉ dưỡng</option>
+                <option value="cheap">Du lịch tiết kiệm</option>
+                <option value="ill-timed">Du lịch trái mùa</option>
+                <option value="healthy">Du lịch chăm sóc sức khỏe</option>
+                <option value="luxury">Du lịch thương gia</option>
+            </select><br><br>
+                <label for="go">Ngày đi:</label><br>
+                <input type="date" id="go" name="go"><br><br>
+                <label for="come">Ngày về:</label><br>
+                <input type="date" id="come" name="come"><br><br>
+                <label for="time">Thời gian:</label><br>
+                <input type="text" id="time" name="time"><br><br>
+                <label for="address">Nơi bắt đầu:</label><br>
+                <input type="text" id="add" name="add"><br><br>
+                <label for="schedule">Lịch trình tour:</label><br>
+                <textarea class="schedule" id="schedule" name="schedule"></textarea><br><br>
+                <label for="vehicle">Phương tiện:</label><br>
+                <input type="text" id="vehicle" name="vehicle"><br><br>
+                <label for="price">Giá:</label><br>
+                <input type="text" id="price" name="price"><br><br>
+                <input type="file" name="inpFile" id="inpFile">
+                <div class="image-preview" id="imagePreview">
+                    <img src="" alt="Image Preview" class="image-preview__image">
+                    <span class="image-preview__default-text">Image Preview</span>
+                </div><br><br>
+                <input type="submit" id="upload" name="upload" value="Gửi bài" onclick="send()"><br>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const inpFile = document.getElementById("inpFile");
+        const previewContainer = document.getElementById("imagePreview");
+        const previewImage = previewContainer.querySelector(".image-preview__image");
+        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+
+        inpFile.addEventListener("change", function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                previewDefaultText.style.display = "none";
+                previewImage.style.display = "block";
+
+                reader.addEventListener("load", function() {
+                    console.log(this);
+                    previewImage.setAttribute("src", this.result);
+                });
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function send() {
+            alert("Đang trong quá trình duyệt bài...... ");
+        }
+    </script>
+
+</body>
+
+</html>

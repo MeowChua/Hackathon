@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Map</title>
+    <link rel="stylesheet" type="text/css" href="test1.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- jsFiddle will insert css and js -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG2Ntk4PItmWztohPXHvRw4z4Hp71RoH4&callback=initMap&libraries=&v=weekly" defer></script>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="control-left-wrapper">
+        <div class="zoom-in" id="zoom-in"></div>
+        <div class="zoom-out" id="zoom-out"></div>
+        <div class="current-location" id="current-location"></div>
+    </div>
+    <script>
+        let map, infoWindow;
+
+        function initMap() {
+            const ChiHoa = {
+                lat: 10.7771803,
+                lng: 106.6666271,
+            };
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: ChiHoa,
+                zoom: 20,
+            });
+            const maker = new google.maps.Marker({
+                position: ChiHoa,
+                map: map,
+            })
+
+            infoWindow = new google.maps.infoWindow();
+            const locationButton = document.createElement("button");
+            locationButton.textContent = "Pan to Current Location";
+            locationButton.classList.add("custom-map-control-button");
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+            locationButton.addEventListener("click", () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude,
+                            };
+                            infoWindow.setPosition(pos);
+                            infoWindow.setContent("Location found");
+                            infoWindow.open(map);
+                            map.setCenter(pos);
+                        },
+                        () => {
+                            handleLocationError(true, infoWindow, map.getCenter());
+                        }
+                    );
+                } else {
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+            });
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(
+                browserHasGeolocation ?
+                "Error: The Geolocation service failed." :
+                "Error: Your browser doesn't support geolocation."
+            );
+            infoWindow.open(map);
+        }
+    </script>
+</body>
+
+</html>

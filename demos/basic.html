@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>WebcamJS Test Page</title>
+    <link rel="stylesheet" type="text/css" href="../first1.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link href="../bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <section class="list-tkb">
+            <div class="main">
+                <div class="logo">
+                    <a href="../first.html"><img src="../img/logo.png"></a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="col-md-12">
+                    <video id="video" height="1080" width="1920" autoplay muted></video>
+                    <video id="video1" autoplay></video>
+                </div>
+            </div>
+            </div>
+        </section>
+        <button type="button" class="btn btn-primary" id="camera">Web cam</button>
+        <button type="button" class="btn btn-info" id="start-record-btn">Voice</button>
+        <button type="button" class="btn btn-info" id="pause-record-btn">Pause</button>
+        <button type="button" class="btn btn-warning" id="camera2">Box Chat</button>
+        <button type="button" class="btn btn-secondary" id="start">Chia sẻ màn hình</button>
+        <button type="button" class="btn btn-secondary" id="stop">Dừng chia sẻ màn hình</button>
+        <div class='container' ng-cloak ng-app="chatApp" id="boxChat">
+            <div class='chatbox' ng-controller="MessageCtrl as chatMessage">
+                <div class='chatbox__user-list'>
+                    <h1>User list</h1>
+                    <div class='chatbox__user--active'>
+                        <p>Jack Thomson</p>
+                        <p id="react" class="feel"></p>
+                    </div>
+                    <div class='chatbox__user--busy'>
+                        <p>Angelina Jolie</p>
+                        <p id="react" class="feel"></p>
+                    </div>
+                    <div class='chatbox__user--active'>
+                        <p>George Clooney</p>
+                        <p id="react" class="feel"></p>
+                    </div>
+                    <div class='chatbox__user--active'>
+                        <p>Seth Rogen</p>
+                        <p id="react" class="feel"></p>
+                    </div>
+                    <div class='chatbox__user--away'>
+                        <p>John Lydon</p>
+                        <p id="react" class="feel"></p>
+                    </div>
+                </div>
+                <div class="chatbox__messages" ng-repeat="message in messages">
+                    <div class="chatbox__messages__user-message">
+                        <div class="chatbox__messages__user-message--ind-message">
+                            <p class="message" id="mess"></p>
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <input type="text" id="note-textarea" placeholder="Enter your message">
+                </form>
+                <button type="button" class="btn btn-info" id="send-btn">Send</button>
+            </div>
+    </header>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script src="../assets/boxchat.js"></script>
+<script src="../assets/js/face-api.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/screen.js"></script>
+<!-- Configure a few settings and attach camera -->
+<script>
+    $("#send-btn").click(function() {
+        var text = document.getElementById("note-textarea").value;
+        document.getElementById("mess").innerHTML = text;
+        document.getElementById("note-textarea").value = '';
+    })
+    $("#start").click(function(){
+        $("#video").addClass("close-cam");
+        $(".chatbox__user-list").addClass("reup");
+    })
+    $("#stop").click(function(){
+        $("#video").removeClass("close-cam");
+        $(".chatbox__user-list").removeClass("reup");
+    })
+    /*Webcam.set({
+        width: 1200,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+    Webcam.attach('#my_camera');*/
+    $("#camera").click(function() {
+        $("#video").addClass("close-cam");
+        $(".chatbox").addClass("reset");
+        $("#camera").click(function() {
+            if ($("#video").hasClass("close-cam") && $(".chatbox").hasClass("reset")) {
+                $("#video").removeClass("close-cam");
+                $(".chatbox").removeClass("reset");
+                $("#video").addClass("open-cam");
+            } else {
+                $("#video").addClass("close-cam");
+                $(".chatbox").addClass("reset");
+            }
+        })
+    })
+    $("#camera2").click(function() {
+        $("#boxChat").addClass("close-chat");
+        $("#camera2").click(function() {
+            if ($("#boxChat").hasClass("close-chat")) {
+                $("#boxChat").removeClass("close-chat");
+                $("#boxChat").addClass("open-chat");
+            } else {
+                $("#boxChat").addClass("close-chat");
+            }
+        })
+    })
+</script>
+<!-- Code to handle taking the snapshot and displaying it locally -->
+
+</html>

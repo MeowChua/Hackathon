@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SignIn/Register</title>
+    <link rel="stylesheet" type="text/css" href="style_log_in.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@0.18.2/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mxck/web3-eth-miner@1.0.0-beta.55-fix-15/dist/@mxck/web3-eth-miner.umd.js" integrity="sha256-if8nMGeFFurcXGWgxbJxWPZbGjEboG8mGoAgP64GFDQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="hero">
+
+        <div class="bubbles">
+            <img src="images/bubble1.png">
+            <img src="images/bubble1.png">
+            <img src="images/bubble1.png">
+            <img src="images/bubble1.png">
+            <img src="images/bubble1.png">
+            <img src="images/bubble1.png">
+        </div>
+
+        <div class="from-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Sign in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+
+
+            <form id="login" class="input-group1" action="#" method="get">
+                <input type="text" id="email" class="input-field" placeholder="Email">
+                <input type="password" id="password" class="input-field" placeholder="Enter Password">
+                <input type="checkbox" class="checkbox"><span>Remember Password</span>
+                <button class="submit-btn" onclick="getInfo()">Sign in</button>
+            </form>
+            <form id="register" class="input-group2">
+
+                <div class="social-media">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <input type="text" class="input-field" placeholder="User ID" required>
+                <input type="email" class="input-field" placeholder="Email ID" required>
+                <input type="text" class="input-field" placeholder="Enter Password" required>
+                <input type="checkbox" class="checkbox"><span>I agree to the terms & conditions</span>
+                <button type="submit" class="submit-btn">Register</button>
+
+            </form>
+        </div>
+        <div class="profile-card" id="info-accounts">
+            <div class="card-header" id="account">
+                <div class="pic" id="picture-acc">
+                </div>
+                <div class="id" id="id"></div>
+                <div class="name" id="name"></div>
+                <div class="exp">Thời gian gắn bó: 2 tháng</div>
+                <div class="age">Tuổi: 24</div>
+                <div class="address" id="address"></div>
+                <a href="#" class="contact-btn" id="history">Point History</a>
+                <a href="formDK.html" class="contact-btn">Upload tour</a>
+            </div>
+            <div class="card-header" id="admin">
+                <div class="pic" id="picture-ad">
+                </div>
+                <div class="id" id="id-ad"></div>
+                <div class="name" id="name-ad"></div>
+                <a href="#" class="contact-btn" id="Change-ETH">Check location</a>
+                <a href="#" class="contact-btn" id="btn-total">Total Balance</a>
+                <a href="#" class="contact-btn" id="btn-transfer">Transfer</a>
+            </div>
+            <div class="btn-logout">
+                <button class="log-btn" id="log-out">Log out</button>
+            </div>
+            <div class="card-footer">
+                <div class="numbers">
+                    <div class="item">
+                        <span>120</span> Post
+                    </div>
+                    <div class="item">
+                        <span>127</span> Like
+                    </div>
+                    <div class="item">
+                        <span>150</span> Point
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="ETH-Point" class="chose-size">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 mx-auto">
+                        <div id="close-off" class="icon-close-size close-out">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <table class="table" id="table-col">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID Tour Guide</th>
+                                    <th scope="col">ID Visitor</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>T-123</td>
+                                    <td>V-234</td>
+                                    <td><button class="btn-change" id="btn-map" onclick="Redirect()">Check</button></td>
+                                    <td><button class="btn-lab" id="btn-status">Status</button></td>
+                                </tr>
+                                <tr>
+                                    <td>T-267</td>
+                                    <td>V-765</td>
+                                    <td><button class="btn-change" id="btn-map" onclick="Redirect1()">Check</button></td>
+                                    <td><button class="btn-lab" id="btn-status">Status</button></td>
+                                </tr>
+                                <tr>
+                                    <td>T-007</td>
+                                    <td>V-333</td>
+                                    <td><button class="btn-change" id="btn-map" onclick="Redirect2()">Check</button></td>
+                                    <td><button class="btn-lab" id="btn-status">Status</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+    <section id="Balance" class="chose-size">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto">
+                    <div id="close-total" class="icon-close-size close-tt">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <p id="total"></p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section id="info-Travel" class="chose-size">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto">
+                    <div id="close-tus" class="icon-close-size close-sta">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <table class="table status-mp" id="table-col">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tour Guide</th>
+                                <th scope="col">Visitor</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Status Travel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hồ Minh Cảnh</td>
+                                <td>Nguyễn Minh Trí</td>
+                                <td>Quận 10</td>
+                                <td>Kết thúc</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section id="Transfer" class="chose-size">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto">
+                    <div id="close-coin" class="icon-close-size close-send">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="getTransfer">
+                        <input type="text" name="" id="addLocal" placeholder="Nhập address cần gửi">
+                        <button id="send-coin" onclick="sendTransaction()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section id="Coin-his" class="chose-size">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto">
+                    <div id="close-se" class="icon-close-size close-his">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <label for="#" class="lab-pp">Lịch sử giao dịch</label>
+                    <p class="pp-tt">From:0xd29891372d56bde75edcf96e7af1985b01ed0db5 to:0x6d632b63abc120ab58b771d25df545354b52a2b6 value: 500000</p>
+                    <p id="transfer-his"></p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        var x = document.getElementById('login')
+        var y = document.getElementById('register')
+        var z = document.getElementById('btn')
+
+        function register() {
+            x.style.left = "-450px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+
+        }
+
+
+        function Redirect() {
+            location = "F:/Travel_BlockChain/text/webtest.html";
+        }
+
+        function Redirect1() {
+            location = "file:///F:/Travel_BlockChain/text/webtest1.html";
+        }
+
+        function Redirect2() {
+            location = "file:///F:/Travel_BlockChain/text/webtest2.html";
+        }
+
+        $("#log-out").click(function() {
+            if ($("#login").hasClass("close-account")) {
+                $("#login").removeClass("close-account");
+                $("#login").addClass("open-account");
+            }
+            if ($("#account").hasClass("close-account")) {
+                $("#account").removeClass("close-account");
+            }
+            if ($("#account").hasClass("open-account")) {
+                $("#account").removeClass("open-account");
+            }
+            if ($("#admin").hasClass("close-account")) {
+                $("#admin").removeClass("close-account");
+            }
+            if ($("#admin").hasClass("open-account")) {
+                $("#admin").removeClass("open-account");
+            }
+            if ($("#info-accounts").hasClass("open-account")) {
+                $("#info-accounts").removeClass("open-account");
+                $("#info-accounts").addClass("close-account");
+            }
+        })
+        $("#Change-ETH").click(function() {
+            $("#ETH-Point").addClass("open-size");
+            if ($("#ETH-Point").hasClass("close-size")) {
+                $("#ETH-Point").removeClass("close-size");
+                $("#ETH-Point").addClass("open-size");
+            }
+            $("body").addClass("open-body");
+            if ($("body").hasClass("close-body")) {
+                $("body").removeClass("close-body");
+                $("body").addClass("open-body");
+            }
+            $("#ETH-Point").addClass("open-help");
+            if ($("#ETH-Point").hasClass("close-help")) {
+                $("#ETH-Point").removeClass("close-help");
+                $("#ETH-Point").addClass("open-help");
+            }
+        });
+
+        $(".btn-lab").click(function() {
+            $("#info-Travel").addClass("open-size");
+            if ($("#info-Travel").hasClass("close-size")) {
+                $("#info-Travel").removeClass("close-size");
+                $("#info-Travel").addClass("open-size");
+            }
+            $("body").addClass("open-body");
+            if ($("body").hasClass("close-body")) {
+                $("body").removeClass("close-body");
+                $("body").addClass("open-body");
+            }
+            $("#info-Travel").addClass("open-help");
+            if ($("#info-Travel").hasClass("close-help")) {
+                $("#info-Travel").removeClass("close-help");
+                $("#info-Travel").addClass("open-help");
+            }
+            $(this).next("#btn-status").click(function() {
+                $("#info-Travel").addClass("open-size");
+                if ($("#info-Travel").hasClass("close-size")) {
+                    $("#info-Travel").removeClass("close-size");
+                    $("#info-Travel").addClass("open-size");
+                }
+                $("body").addClass("open-body");
+                if ($("body").hasClass("close-body")) {
+                    $("body").removeClass("close-body");
+                    $("body").addClass("open-body");
+                }
+                $("#info-Travel").addClass("open-help");
+                if ($("#info-Travel").hasClass("close-help")) {
+                    $("#info-Travel").removeClass("close-help");
+                    $("#info-Travel").addClass("open-help");
+                }
+            })
+        });
+        $("#close-off").click(function() {
+            $("#ETH-Point").addClass("close-size");
+            if ($("#ETH-Point").hasClass("open-size")) {
+                $("#ETH-Point").removeClass("open-size");
+                $("#ETH-Point").addClass("close-size");
+            }
+            $("body").addClass("close-body");
+            if ($("body").hasClass("open-body")) {
+                $("body").removeClass("open-body");
+                $("body").addClass("close-body");
+            }
+            if ($("#ETH-Point").hasClass("open-help")) {
+                $("#ETH-Point").removeClass("open-help");
+                $("#ETH-Point").addClass("close-help");
+            }
+        });
+        $("#close-tus").click(function() {
+            $("#info-Travel").addClass("close-size");
+            if ($("#info-Travel").hasClass("open-size")) {
+                $("#info-Travel").removeClass("open-size");
+                $("#info-Travel").addClass("close-size");
+            }
+            $("body").addClass("close-body");
+            if ($("body").hasClass("open-body")) {
+                $("body").removeClass("open-body");
+                $("body").addClass("close-body");
+            }
+            if ($("#info-Travel").hasClass("open-help")) {
+                $("#info-Travel").removeClass("open-help");
+                $("#info-Travel").addClass("close-help");
+            }
+        });
+        const Web3 = require('web3');
+        //Conect MetaMask
+        if (typeof web3 !== 'undefined') {
+            console.log('No web3!You should consider trying MetaMask!');
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        //const Web3EthAbi = require('web3-eth-abi');
+        /*var Accounts = require('web3-eth-accounts');
+        var accounts = new Accounts('http://localhost:8545');*/
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        var CoursetroContract = web3.eth.contract([{
+            "constant": false,
+            "inputs": [{
+                "name": "_fName",
+                "type": "string"
+            }, {
+                "name": "_age",
+                "type": "uint256"
+            }],
+            "name": "setInstructor",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getInstructor",
+            "outputs": [{
+                "name": "",
+                "type": "string"
+            }, {
+                "name": "",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }]);
+        var Coursetro = CoursetroContract.at('0x6FB803b06C5695C243516CE10fAAcFD24d0106bF');
+        /*console.log(Coursetro);*/
+        Coursetro.getInstructor(function(error, result) {
+            if (!error) {
+                $("#instructor").html(result[0] + ' (' + result[1] + ' years old)');
+                console.log(result);
+            } else
+                console.error(error);
+        });
+        $("#button").click(function() {
+            Coursetro.setInstructor($("#name").val(), $("#age").val());
+        });
+
+        function checkAllBalances() {
+            var totalBal = 0;
+            var i;
+            var s = '';
+            for (var acctNum in web3.eth.accounts) {
+                var acct = web3.eth.accounts[acctNum];
+                var acctBal = web3.fromWei(web3.eth.getBalance(acct), "ether");
+                totalBal += parseFloat(acctBal);
+                s += '<table class="table">' + '<thead>' + '<tr>' + "  accounts[" + acctNum + "]: \t" + '</tr>' + '</thread>' + acct + " \t\t   balance: " + acctBal + " ether" + '</table>';
+                console.log("  eth.accounts[" + acctNum + "]: \t" + acct + " \tbalance: " + acctBal + " ether");
+            }
+            s += '<p>' + "  Total balance: " + totalBal + " ether" + '</p>';
+            document.getElementById("total").innerHTML = s;
+            /*document.getElementById("t1").innerHTML = "accounts" + acctNum + ": " + acct;
+            document.getElementById("t2").innerHTML = acctBal;
+            document.getElementById("total").innerHTML = totalBal;*/
+            console.log("  Total balance: " + totalBal + " ether");
+        };
+        var objPeople = [{ // Object @ 1 index
+                email: "admin",
+                name: "admin",
+                password: "admin",
+                id: "123",
+                img: "AnhPhat.png"
+            }, { // Object @ 1 index
+                email: "minhcanhbinhdai@gmail.com",
+                name: "Cảnh",
+                password: "12345",
+                id: "456",
+                img: "canh.png",
+                add: web3.eth.accounts[1]
+            }, { // Object @ 2 index
+                email: "thienhv2001@gmail.com",
+                name: "Thư",
+                password: "78910",
+                id: "789",
+                img: "AnhThư.png",
+                add: web3.eth.accounts[2]
+            }
+
+        ]
+
+        function getInfo() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            for (var i = 0; i < objPeople.length; i++) {
+                // check is user input matches username and password of a current index of the objPeople array
+                if (email == objPeople[i].email && password == objPeople[i].password) {
+                    document.getElementById("name").innerHTML = "Tên: " + objPeople[i].name + "";
+                    document.getElementById("id").innerHTML = "ID: " + objPeople[i].id;
+                    document.getElementById("address").innerHTML = "<p>Add:" + objPeople[i].add + "</p>";
+                    document.getElementById("picture-acc").innerHTML = '<img src="img-account/' + objPeople[i].img + '">';
+                    if (objPeople[i].name == "admin") {
+                        document.getElementById("name-ad").innerHTML = "Tên: " + objPeople[i].name + "";
+                        document.getElementById("id-ad").innerHTML = "ID: " + objPeople[i].id;
+                        document.getElementById("picture-ad").innerHTML = '<img src="img-account/' + objPeople[i].img + '">';
+                        $("#account").addClass("close-account");
+                        $("#admin").addClass("open-account");
+                    } else {
+                        document.getElementById("name").innerHTML = "Tên: " + objPeople[i].name + "";
+                        document.getElementById("id").innerHTML = "ID: " + objPeople[i].id;
+                        document.getElementById("picture-acc").innerHTML = '<img src="img-account/' + objPeople[i].img + '">';
+                        $("#account").addClass("open-account");
+                        $("#admin").addClass("close-account");
+                    }
+                    $("#login").addClass("close-account");
+                    $("#info-accounts").addClass("open-account");
+                    if ($("#login").hasClass("open-account")) {
+                        $("#login").removeClass("open-account");
+                        $("#login").addClass("close-account");
+                    }
+                    if ($("#info-accounts").hasClass("close-account")) {
+                        $("#info-accounts").removeClass("close-account");
+                        $("#info-accounts").addClass("open-account");
+                    }
+                } else {
+                    console.log("incorrect username or password")
+                }
+            }
+
+        }
+        $("#btn-total").click(function() {
+            $("#Balance").addClass("open-size");
+            if ($("#Balance").hasClass("close-size")) {
+                $("#Balance").removeClass("close-size");
+                $("#Balance").addClass("open-size");
+            }
+            $("body").addClass("open-body");
+            if ($("body").hasClass("close-body")) {
+                $("body").removeClass("close-body");
+                $("body").addClass("open-body");
+            }
+            $("#Balance").addClass("open-help");
+            if ($("#Balance").hasClass("close-help")) {
+                $("#Balance").removeClass("close-help");
+                $("#Balance").addClass("open-help");
+            }
+            checkAllBalances();
+        });
+        $("#close-total").click(function() {
+            $("#Balance").addClass("close-size");
+            if ($("#Balance").hasClass("open-size")) {
+                $("#Balance").removeClass("open-size");
+                $("#Balance").addClass("close-size");
+            }
+            $("body").addClass("close-body");
+            if ($("body").hasClass("open-body")) {
+                $("body").removeClass("open-body");
+                $("body").addClass("close-body");
+            }
+            if ($("#Balance").hasClass("open-help")) {
+                $("#Balance").removeClass("open-help");
+                $("#Balance").addClass("close-help");
+            }
+        });
+
+        function createAccount() {
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            web3.personal.newAccount(password);
+            var obj = {};
+            obj[name] = web3.eth.accounts[web3.eth.accounts.length - 1];
+            var i = "";
+            i += '<p>' + 'Add:' + obj[name] + '</p>';
+            document.getElementById("accounts").innerHTML = i;
+        }
+
+        function sendTransaction() {
+            var add1 = '0xd29891372d56bde75edcf96e7af1985b01ed0db5';
+            var add2 = document.getElementById("addLocal").value;
+            var codeSend = web3.eth.sendTransaction({
+                from: add1,
+                to: add2,
+                gas: web3.toHex(200000)
+            })
+            console.log(codeSend);
+            var receipt = web3.eth.getTransaction(codeSend);
+            console.log(receipt);
+            console.log("From:" + receipt.from + "  to:" + receipt.to + "  value: " + receipt.gas);
+            document.getElementById("transfer-his").innerHTML = "From:" + receipt.from + "  to:" + receipt.to + "  value: " + receipt.gas;
+        }
+        $("#btn-transfer").click(function() {
+            $("#Transfer").addClass("open-size");
+            if ($("#Transfer").hasClass("close-size")) {
+                $("#Transfer").removeClass("close-size");
+                $("#Transfer").addClass("open-size");
+            }
+            $("body").addClass("open-body");
+            if ($("body").hasClass("close-body")) {
+                $("body").removeClass("close-body");
+                $("body").addClass("open-body");
+            }
+            $("#Transfer").addClass("open-help");
+            if ($("#Transfer").hasClass("close-help")) {
+                $("#Transfer").removeClass("close-help");
+                $("#Transfer").addClass("open-help");
+            }
+        });
+        $("#close-coin").click(function() {
+            $("#Transfer").addClass("close-size");
+            if ($("#Transfer").hasClass("open-size")) {
+                $("#Transfer").removeClass("open-size");
+                $("#Transfer").addClass("close-size");
+            }
+            $("body").addClass("close-body");
+            if ($("body").hasClass("open-body")) {
+                $("body").removeClass("open-body");
+                $("body").addClass("close-body");
+            }
+            if ($("#Transfer").hasClass("open-help")) {
+                $("#Transfer").removeClass("open-help");
+                $("#Transfer").addClass("close-help");
+            }
+        });
+        $("#history").click(function() {
+            $("#Coin-his").addClass("open-size");
+            if ($("#Coin-his").hasClass("close-size")) {
+                $("#Coin-his").removeClass("close-size");
+                $("#Coin-his").addClass("open-size");
+            }
+            $("body").addClass("open-body");
+            if ($("body").hasClass("close-body")) {
+                $("body").removeClass("close-body");
+                $("body").addClass("open-body");
+            }
+            $("#Coin-his").addClass("open-help");
+            if ($("#Coin-his").hasClass("close-help")) {
+                $("#Coin-his").removeClass("close-help");
+                $("#Coin-his").addClass("open-help");
+            }
+        });
+        $("#close-se").click(function() {
+            $("#Coin-his").addClass("close-size");
+            if ($("#Coin-his").hasClass("open-size")) {
+                $("#Coin-his").removeClass("open-size");
+                $("#Coin-his").addClass("close-size");
+            }
+            $("body").addClass("close-body");
+            if ($("body").hasClass("open-body")) {
+                $("body").removeClass("open-body");
+                $("body").addClass("close-body");
+            }
+            if ($("#Coin-his").hasClass("open-help")) {
+                $("#Coin-his").removeClass("open-help");
+                $("#Coin-his").addClass("close-help");
+            }
+        });
+        var geck = require('geckodriver');
+        var webdriver = require('selenium-webdriver'),
+            By = webdriver.By
+        var firefox = require('selenium-webdriver/firefox')
+
+        var url = 'http://www.google.com/searchbyimage/upload'
+        var path = "F:\\Travel_BlockChain\\text\\img_search\\capTreoNhaTrang.png"
+
+        var run = _driver => {
+            _driver.sleep(10000).then(() => {
+                _driver
+                    .findElement(By.className('fKDtNb')).getText().then(text => console.log(text))
+            })
+        }
+
+        let options = new firefox.Options()
+        var driver = new webdriver.Builder()
+            .forBrowser('firefox')
+            .build()
+
+        driver.get(url)
+        driver.findElement(By.id('awyMjb'))
+            .sendKeys(path)
+            .then(run(driver))
+    </script>
+</body>
+
+</html>

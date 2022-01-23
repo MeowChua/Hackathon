@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@0.18.2/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mxck/web3-eth-miner@1.0.0-beta.55-fix-15/dist/@mxck/web3-eth-miner.umd.js" integrity="sha256-if8nMGeFFurcXGWgxbJxWPZbGjEboG8mGoAgP64GFDQ=" crossorigin="anonymous"></script>
+    <link href="bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Coursetro Instructor</h1>
+        <h2 id="instructor"></h2>
+        <label for="name" class="col-lg-2 control-label">Instructor Name</label>
+        <input id="name" type="text">
+        <label for="name" class="col-lg-2 control-label">Instructor Age</label>
+        <input id="age" type="text">
+        <button id="button">Update Instructor</button>
+        <button id="btn-click" onclick="checkAllBalances()">Click here</button>
+        <p id="text"></p>
+        <input type="text" id="name">
+        <input type="text" id="password">
+        <button id="btn-accounts" onclick="createAccount()">Create Account</button>
+        <p id="accounts"></p>
+        <label>Nhập vào add cần chuyển tiền</label>
+        <input type="text" id="addLocal">
+        <button id="btn-sendCoin" onclick="sendTransaction()">Send Transaction</button>
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <!-- <script type="module">
+       import {Miner} from 'web3-eth-miner';
+       const miner = new Miner(Web3.givenProvider || 'http://localhost:8545', null, options);
+    </script> -->
+    <script>
+        const Web3 = require('web3');
+        //Conect MetaMask
+        if (typeof web3 !== 'undefined') {
+            console.log('No web3!You should consider trying MetaMask!');
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        //const Web3EthAbi = require('web3-eth-abi');
+        /*var Accounts = require('web3-eth-accounts');
+        var accounts = new Accounts('http://localhost:8545');*/
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        var CoursetroContract = web3.eth.contract([{
+            "constant": false,
+            "inputs": [{
+                "name": "_fName",
+                "type": "string"
+            }, {
+                "name": "_age",
+                "type": "uint256"
+            }],
+            "name": "setInstructor",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "getInstructor",
+            "outputs": [{
+                "name": "",
+                "type": "string"
+            }, {
+                "name": "",
+                "type": "uint256"
+            }],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }]);
+        var Coursetro = CoursetroContract.at('0x6FB803b06C5695C243516CE10fAAcFD24d0106bF');
+        /*console.log(Coursetro);*/
+        Coursetro.getInstructor(function(error, result) {
+            if (!error) {
+                $("#instructor").html(result[0] + ' (' + result[1] + ' years old)');
+                console.log(result);
+            } else
+                console.error(error);
+        });
+        $("#button").click(function() {
+            Coursetro.setInstructor($("#name").val(), $("#age").val());
+        });
+
+        function checkAllBalances() {
+            var totalBal = 0;
+            var i;
+            var s = '';
+            for (var acctNum in web3.eth.accounts) {
+                var acct = web3.eth.accounts[acctNum];
+                var acctBal = web3.fromWei(web3.eth.getBalance(acct), "ether");
+                totalBal += parseFloat(acctBal);
+                s += '<table class="table">' + '<thead>' + '<tr>' + "  eth.accounts[" + acctNum + "]: \t" + '</tr>' + '</thread>' + acct + " \tbalance: " + acctBal + " ether" + '</table>';
+                console.log("  eth.accounts[" + acctNum + "]: \t" + acct + " \tbalance: " + acctBal + " ether");
+            }
+            s += '<p>' + "  Total balance: " + totalBal + " ether" + '</p>';
+            document.getElementById("text").innerHTML = s;
+            console.log("  Total balance: " + totalBal + " ether");
+        };
+
+        function createAccount() {
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            web3.personal.newAccount(password);
+            var obj = {};
+            obj[name] = web3.eth.accounts[web3.eth.accounts.length - 1];
+            var i = "";
+            i += '<p>' + 'Add:' + obj[name] + '</p>';
+            document.getElementById("accounts").innerHTML = i;
+        }
+
+        function sendTransaction() {
+            var add1 = '0xd29891372d56bde75edcf96e7af1985b01ed0db5';
+            var add2 = document.getElementById("addLocal").value;
+            var t = "";
+            var codeSend = web3.eth.sendTransaction({
+                from: add1,
+                to: add2,
+                gas: web3.toHex(200000)
+            })
+            console.log(codeSend);
+            var receipt = web3.eth.getTransaction(codeSend);
+                console.log(receipt);
+            console.log("From:" + receipt.from + "\nto:" + receipt.to + "\nvalue: " + receipt.gas);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>First Page</title>
+    <link rel="stylesheet" type="text/css" href="first1.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link href="./bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <section class="list-tkb">
+            <div class="main">
+                <div class="logo">
+                    <a href="first.html"><img src="img/logo.png"></a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="menu-monhoc">
+                        <form action="#" method="post" class="form-post" id="pos">
+                            <label for="#" class="mssv-lich">Nhập MSSV:</label>
+                            <input type="text" id="text-1" class="nhap-mssv">
+                            <button type="button" class="btn btn-info" id="btn-se">Search</button>
+                        </form>
+                        <div class="ten">
+                            <p id="li-text1">Họ và Tên: Hồ Minh Cảnh</p>
+                            <label>MSSV: <p id="li-text2"></p></label>
+                        </div>
+                        <table class="table table-striped" id="tap-mon">
+                            <thead>
+                                <tr>
+                                    <th scope="col" id="first-mh">Môn thi</th>
+                                    <th scope="col">Số phòng</th>
+                                    <th scope="col">Tiết bắt đầu</th>
+                                    <th scope="col">Ngày thi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" id="first-mh">Data Structure</th>
+                                    <td>C.A504</td>
+                                    <td>1</td>
+                                    <td>10/1/2021</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" id="first-mh">Lập Trình Hướng Đối Tượng</th>
+                                    <td>C.302</td>
+                                    <td>6</td>
+                                    <td>13/1/2021</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" id="first-mh">Data Structure</th>
+                                    <td>C.B103</td>
+                                    <td>8</td>
+                                    <td>14/1/2021</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script>
+    var massv = document.getElementById('li-text2')
+    $("#btn-se").click(function () {
+        $("#tap-mon").addClass("open-tab");
+        $(".ten").addClass("open-tab");
+        $("#pos").addClass("close-tab");
+        var x = document.getElementById("text-1").value;
+        massv.innerHTML = x;
+        $("#btn-se").click(function () {
+            if ($("#tap-mon").hasClass("open-tab") && $("#ten").hasClass("open-tab")&& $("#pos").hasClass("close-tab")) {
+                $("#tap-mon").removeClass("open-tab");
+                $("#ten").removeClass("open-tab");
+                $("#pos").removeClass("close-tab");
+            } else {
+                $("#tap-mon").addClass("open-tab");
+                $("#ten").addClass("open-tab");
+                $("#pos").addClass("close-tab");
+            }    
+        })
+    })
+</script>
